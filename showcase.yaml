@@ -1,0 +1,17 @@
+type: runtime
+
+entrypoint: ./main
+
+use_mariadb: true
+
+startup: |
+  PATH=$PATH:$GOPATH/bin
+  NS=$GOPATH/src/git.trapti.tech/series2
+  REPO=$NS/naro
+  mkdir -p $NS
+  ln -s `pwd`/ $REPO
+  cd $REPO
+  dep ensure -v
+  go build -o main main.go
+
+http_proxy: 12602
